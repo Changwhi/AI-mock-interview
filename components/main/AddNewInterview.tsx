@@ -11,16 +11,36 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { chatSession } from "@/utils/GeminiAi";
+import { LoaderCircle } from "lucide-react";
 
 function AddNewInterview() {
   const [open, setOpen] = useState(false);
   const [position, setPosition] = useState("");
   const [description, setDescription] = useState("");
-  const [stacks, setStacks] = useState("");
-  const handdleSubmit = (e:any) => {
-    console.log(position, description, stacks);
-    e.preventDefault()
-    
+  const [year, setYear] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
+    e.preventDefault();
+    try {
+        const InputPromt =
+          "Job position:" +
+          position +
+          ", Job Description:" +
+          description +
+          ", Years of Experience:" +
+          year +
+          ", Depends on Job Position, Job description and years of Experience, give us 5 interview questions along with answer in Json format, Give us question and answer field on Json";
+        console.log(InputPromt);
+        const result = await chatSession.sendMessage(InputPromt);
+        const data = (result.response.text()).replace("```json","").replace("```","");
+        console.log(JSON.parse(data));
+    } catch (error) {
+       console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -31,10 +51,7 @@ function AddNewInterview() {
         }}
         className="p-10 border rounded-lg bg-secondary hover:scale-105 hover:shadow-md cursor-pointer transition-all"
       >
-        <h2 className="text-lg font-semibold text-center">
-          {" "}
-          + Start New Mockup
-        </h2>
+        <p className="text-lg font-semibold text-center"> + Start New Mockup</p>
       </div>
       <Dialog open={open}>
         <DialogContent className="max-w-2xl">
@@ -43,9 +60,9 @@ function AddNewInterview() {
               What kind of Mockup do you want?
             </DialogTitle>
             <DialogDescription>
-              <form onSubmit={handdleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <div className="text-black font-semibold">
-                  <h2>Let us know your needs</h2>
+                  <p>Let us know your needs</p>
                   <div className="mt-7 mb-4">
                     <label className="">Position</label>
                     <Input
@@ -66,7 +83,7 @@ function AddNewInterview() {
                   <div className="mb-4">
                     <label>Year of your experience</label>
                     <Input
-                      onChange={(e) => setStacks(e.target.value)}
+                      onChange={(e) => setYear(e.target.value)}
                       placeholder="e,g. 2"
                       type="number"
                       max={100}
@@ -83,8 +100,19 @@ function AddNewInterview() {
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" className="w-20" variant={"default"}>
-                    Start
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    className="w-20"
+                    variant={"default"}
+                  >
+                    {loading ? (
+                      <>
+                        <LoaderCircle className="w-4 h-4 mr-2 animate-spin" />
+                      </>
+                    ) : (
+                      "Submit"
+                    )}
                   </Button>
                 </div>
               </form>
