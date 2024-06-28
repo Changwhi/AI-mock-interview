@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "@/components/dashboard/Header";
+import Header from "@/components/main/Header";
 export default function MainLayout({
   children, // will be a page or nested layout
 }: {
@@ -9,7 +9,7 @@ export default function MainLayout({
     <section>
       <Header />
       {/* Include shared UI here e.g. a header or sidebar */}
-      {children}
+      <div className="mx-5 md:mx-20 lg:mx-36">{children}</div>
     </section>
   );
 }
