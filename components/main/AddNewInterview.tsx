@@ -13,6 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { chatSession } from "@/utils/GeminiAi";
 import { LoaderCircle } from "lucide-react";
+import { MockInterview } from "@/utils/schema";
+import { v4 as uuidv4 } from "uuid";
+import { useUser } from "@clerk/nextjs";
+import moment from "moment";
+import { db } from "@/utils/db";
 
 function AddNewInterview() {
   const [open, setOpen] = useState(false);
@@ -20,24 +25,47 @@ function AddNewInterview() {
   const [description, setDescription] = useState("");
   const [year, setYear] = useState("");
   const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState([]);
+  const { user } = useUser();
   const handleSubmit = async (e: React.FormEvent) => {
     setLoading(true);
     e.preventDefault();
     try {
-        const InputPromt =
-          "Job position:" +
-          position +
-          ", Job Description:" +
-          description +
-          ", Years of Experience:" +
-          year +
-          ", Depends on Job Position, Job description and years of Experience, give us 5 interview questions along with answer in Json format, Give us question and answer field on Json";
-        console.log(InputPromt);
-        const result = await chatSession.sendMessage(InputPromt);
-        const data = (result.response.text()).replace("```json","").replace("```","");
-        console.log(JSON.parse(data));
+      const InputPromt =
+        "Job position:" +
+        position +
+        ", Job Description:" +
+        description +
+        ", Years of Experience:" +
+        year +
+        ", Depends on Job Position, Job description and years of Experience, give us 5 interview questions along with answer in Json format, Give us question and answer field on Json";
+      console.log(InputPromt);
+      const result = await chatSession.sendMessage(InputPromt);
+      const data = result.response
+        .text()
+        .replace("```json", "")
+        .replace("```", "");
+      setResponse(data);
+      if (!data) {
+        console.log("No data found - in AddNewInterview.tsx");
+        return;
+      }
+      const resp = await db.insert(MockInterview).values({
+          mockId: uuidv4() as string,
+          jsonMockResp: data as string,
+          jobDescription: description as string,
+          jobPosition: position as string,
+          jobExperience: year as string,
+          createdBy: user?.primaryEmailAddress?.emailAddress as string,
+          createdAt: moment().format("DD-MM-yyyy"),
+        }).returning({
+          mockId:MockInterview.mockId
+        });
+        if(resp){
+            setOpenInterview(true);
+        }
     } catch (error) {
-       console.log(error);
+      console.log(error);
     } finally {
       setLoading(false);
     }
