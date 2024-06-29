@@ -3,7 +3,7 @@ import { integer, pgEnum, pgTable, serial, text, uniqueIndex, varchar } from 'dr
 type UserId = number & { __brand: 'user_id' };
 export const popularityEnum = pgEnum('popularity', ['unknown', 'known', 'popular']);
 
-export const countries = pgTable('mockInterview', {
+export const MockInterview = pgTable('mockInterview', {
   id: serial('id').primaryKey(),
   jsonMockResp:text('jsonMockResp').notNull(),
   jobPosition:varchar('jobPosition').notNull(),
