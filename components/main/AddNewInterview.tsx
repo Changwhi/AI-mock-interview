@@ -41,12 +41,13 @@ function AddNewInterview() {
         description +
         ", Years of Experience:" +
         year +
-        ", Depends on Job Position, Job description and years of Experience, give us 5 interview questions along with answer in Json format, Give us question and answer field on Json";
+        ", depends on this information please give me 5 interview question with Answered in Json format, give question and answer as filed in json";
       console.log(InputPromt);
       const result = await chatSession.sendMessage(InputPromt);
       const data = result.response
         .text()
         .replace("```json", "")
+        .replace(/^\s+/, "")
         .replace("```", "");
       setResponse(data);
       if (!data) {
