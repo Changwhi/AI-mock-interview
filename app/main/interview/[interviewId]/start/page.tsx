@@ -1,5 +1,4 @@
 "use client";
-import getInterviewDetails from "@/lib/getInterviewDetails";
 import { MockInterviewType } from "@/type/interviewType";
 import React, { useEffect, useState } from "react";
 import QuestionsSection from "./_components/QuestionsSection";
