@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { Lightbulb, WebcamIcon } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Lightbulb, Mic, WebcamIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Webcam from "react-webcam";
+import useSpeechToText from "react-hook-speech-to-text";
 
 const videoConstraints = {
   width: 1280,
@@ -10,6 +11,25 @@ const videoConstraints = {
   facingMode: "user",
 };
 function WebcamComponent({ cameraButton }: { cameraButton: boolean }) {
+  const [userAnswer, setUserAnswer] = useState("");
+  const {
+    error,
+    interimResult,
+    isRecording,
+    results,
+    startSpeechToText,
+    stopSpeechToText,
+  } = useSpeechToText({
+    continuous: true,
+    useLegacyResults: false,
+  });
+
+  useEffect(() => {
+    results.map((result: any) => {
+      setUserAnswer((prevAns) => prevAns + result?.transcript);
+    });
+  }, [results]);
+
   const [webCamEnabled, setWebCamEnabled] = useState(false);
   return webCamEnabled ? (
     <>
@@ -32,8 +52,18 @@ function WebcamComponent({ cameraButton }: { cameraButton: boolean }) {
         </Button>
       )}
       {!cameraButton && (
-        <Button className="my-2" variant={"outline"}>
-          Record
+        <Button
+          className="my-2"
+          variant={"outline"}
+          onClick={isRecording ? stopSpeechToText : startSpeechToText}
+        >
+          {isRecording ? (
+            <h2>
+              <Mic /> Recording...
+            </h2>
+          ) : (
+            "Record"
+          )}
         </Button>
       )}
     </>
@@ -52,10 +82,19 @@ function WebcamComponent({ cameraButton }: { cameraButton: boolean }) {
         </Button>
       )}
       {!cameraButton && (
-        <Button className="my-2" variant={"outline"}>
-          Record
+        <Button
+          className="my-2"
+          variant={isRecording ? "destructive" : "outline"}
+          onClick={isRecording ? stopSpeechToText : startSpeechToText}
+        >
+          {isRecording ? (
+               "Stop"
+          ) : (
+            "Record"
+          )}
         </Button>
       )}
+      <Button onClick={() => console.log(userAnswer)}>Show user answer</Button>
     </>
   );
 }
