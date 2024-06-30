@@ -12,8 +12,7 @@ const videoConstraints = {
 function WebcamComponent() {
   const [webCamEnabled, setWebCamEnabled] = useState(false);
   return (
-    <div>
-            {webCamEnabled ? (
+            webCamEnabled ? (
               <>
                 <Webcam
                   mirrored={true}
@@ -33,10 +32,7 @@ function WebcamComponent() {
                   Enable Webcam
                 </Button>
               </>
-            )}
-
-
-    </div>
+            )
   )
 }
 
