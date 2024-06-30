@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { db } from "@/utils/db";
+import { useRouter } from "next/navigation";
 
 function AddNewInterview() {
   const [open, setOpen] = useState(false);
@@ -26,7 +27,9 @@ function AddNewInterview() {
   const [year, setYear] = useState("");
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState([]);
+  const [openInterview, setOpenInterview] = useState(false);
   const { user } = useUser();
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     setLoading(true);
     e.preventDefault();
@@ -63,7 +66,9 @@ function AddNewInterview() {
         });
         if(resp){
             setOpenInterview(true);
+            router.push('/main/interview/'+resp[0].mockId)
         }
+        setOpen(false);
     } catch (error) {
       console.log(error);
     } finally {
