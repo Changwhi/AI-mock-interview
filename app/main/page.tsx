@@ -1,6 +1,6 @@
 import AddNewInterview from '@/components/main/AddNewInterview'
 import { UserButton } from '@clerk/nextjs'
-import React from'react'
+import React, { useEffect } from'react'
 
 const Main = () => {
 
