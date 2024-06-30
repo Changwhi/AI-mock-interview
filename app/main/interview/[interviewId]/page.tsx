@@ -4,41 +4,19 @@ import { db } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { eq } from "drizzle-orm";
 import React, { useEffect, useRef, useState } from "react";
-import Webcam from "react-webcam";
 import { Lightbulb, WebcamIcon } from "lucide-react";
 import { INFORMATION_ABOUT_THE_INTERVIEW } from "@/text/interview";
 import { MockInterviewType } from "@/type/interviewType";
-
-const videoConstraints = {
-  width: 1280,
-  height: 720,
-  facingMode: "user",
-};
+import Link from "next/link";
+import useGetInterviewDetails from "@/lib/useGetInterviewDetails";
+import WebcamComponent from "./_component/WebcamComponent";
 
 function Interview({ params }: { params: { interviewId: string } }) {
-  const [interviewInfo, setInterview] = useState<MockInterviewType | null>(
-    null
-  );
-  const [webCamEnabled, setWebCamEnabled] = useState(false);
 
-  useEffect(() => {
-    getInterviewDetails();
-  }, []);
-
-  const getInterviewDetails = async () => {
-    try {
-      const result: MockInterviewType[] = await db
-        .select()
-        .from(MockInterview)
-        .where(eq(MockInterview.mockId, params.interviewId));
-      if (result.length > 0) {
-        setInterview(result[0]);
-      }
-      console.log(result[0]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const interviewInfo = useGetInterviewDetails(params.interviewId);
+  if (!interviewInfo) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className="p-10 flex flex-col">
@@ -58,8 +36,7 @@ function Interview({ params }: { params: { interviewId: string } }) {
               </h2>
               <h2 className="text-lg">
                 <strong>Job Experience: </strong>
-                {interviewInfo?.jobExperience}
-                 {" "} year(s)
+                {interviewInfo?.jobExperience} year(s)
               </h2>
             </div>
             <div className="flex flex-col p-5 rounded-lg text-yellow-700 border gap-5 bg-yellow-100">
@@ -73,31 +50,14 @@ function Interview({ params }: { params: { interviewId: string } }) {
           </div>
           <div className="flex flex-col justify-center gap-4">
             {/* <Webcam /> */}
-            {webCamEnabled ? (
-              <>
-                <Webcam
-                  mirrored={true}
-                  videoConstraints={videoConstraints}
-                />
 
-                <Button variant={"outline"} className="self-center" onClick={() => setWebCamEnabled(false)}>
-                  Disable Webcam
-                </Button>
-              </>
-            ) : (
-              <>
-                <div className="h-full w-full items-center flex flex-col justify-center text-center text-semibold border bg-secondary rounded-md">
-                  <WebcamIcon className="w-20 h-20" />
-                </div>
-                <Button variant={"outline"} className="self-center" onClick={() => setWebCamEnabled(true)}>
-                  Enable Webcam
-                </Button>
-              </>
-            )}
+            <WebcamComponent />
           </div>
         </div>
       </div>
-        <Button className="self-center">Let's start</Button>
+      <Link href={`/main/interview/${params.interviewId}/start`}>
+        <Button className="self-center">Let&#39;s start</Button>
+      </Link>
     </div>
   );
 }
