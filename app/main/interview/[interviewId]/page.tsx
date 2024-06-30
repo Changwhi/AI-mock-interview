@@ -5,7 +5,7 @@ import { Lightbulb, WebcamIcon } from "lucide-react";
 import { INFORMATION_ABOUT_THE_INTERVIEW } from "@/text/interview";
 import Link from "next/link";
 import useGetInterviewDetails from "@/lib/useGetInterviewDetails";
-import WebcamComponent from "./_component/WebcamComponent";
+import WebcamComponent from "../../../../components/WebcamComponent";
 import { Skeleton } from "@/components/ui/skeleton";
 
 function Interview({ params }: { params: { interviewId: string } }) {
@@ -38,7 +38,7 @@ function Interview({ params }: { params: { interviewId: string } }) {
     <div className="p-10 flex flex-col">
       <h2 className="font-bold text-2xl">Ready to Mockup Interview</h2>
       <h2 className="text-gray-500">Check your Mockup Interview details</h2>
-      <div className="flex justify-center items-center my-10">
+      <div className="flex justify-center items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <div className="grid grid-cols-1 my-5 gap-5">
             <div className="flex flex-col p-5 rounded-lg border gap-5">
@@ -66,7 +66,7 @@ function Interview({ params }: { params: { interviewId: string } }) {
           </div>
           <div className="flex flex-col justify-center gap-4">
             {/* <Webcam /> */}
-            <WebcamComponent />
+            <WebcamComponent cameraButton={true} />
           </div>
         </div>
       </div>
