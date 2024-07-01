@@ -42,66 +42,71 @@ function WebcamComponent({
     useLegacyResults: false,
   });
 
+  const [webCamEnabled, setWebCamEnabled] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { user } = useUser();
+
   useEffect(() => {
     results.map((result: any) => {
       setUserAnswer((prevAns) => prevAns + result?.transcript);
     });
   }, [results]);
-  const { user } = useUser();
 
-  const [webCamEnabled, setWebCamEnabled] = useState(false);
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (!isRecording && userAnswer.length > 10) {
+      updateAnswer();
+    }
+    if (userAnswer.length < 10) {
+      setLoading(false);
+      toast("Please speak at least 10 words");
+      return;
+    }
+  }, [userAnswer]);
 
-  const saveAnswer = async () => {
+  const startStopRecording = async () => {
     if (isRecording) {
-      setLoading(true);
       stopSpeechToText();
-      if (userAnswer.length < 10) {
-        setLoading(false);
-        toast("Please speak at least 10 words");
-        return;
-      } else if (questions) {
-        const feedbackPrompt =
-          "Qeustion: " +
-          questions[activeQuestion]?.question +
-          " Answer: " +
-          userAnswer +
-          ",depends on question and user answer for given interview question" +
-          " please give us rating for answer and feedback as area of improvement if any" +
-          "in just 3 to 5 lines to improve it in JSON format with rating field and feedback field";
-        const result = await chatSession.sendMessage(feedbackPrompt);
-        const mockJsonResp = result.response
-          .text()
-          .replace("```json", "")
-          .replace(/^\s+/, "")
-          .replace("```", "");
-        console.log(mockJsonResp);
-        const responseData = JSON.parse(mockJsonResp);
-
-        const respDB = await db.insert(Answer).values({
-          mockIdRef: interviewInfo?.mockId as string,
-          question: questions[activeQuestion]?.question as string,
-          userAnswer: userAnswer as string,
-          feedback: responseData?.feedback as string,
-          rating: responseData?.rating as string,
-          createdAt: moment().format("DD-MM-yyyy") as string,
-          correctAns: questions[activeQuestion]?.answer as string,
-          userEmail: user?.primaryEmailAddress?.emailAddress as string,
-        });
-        if (respDB) {
-          toast("Answer saved successfully");
-        }
-        setUserAnswer("");
-        setLoading(false);
-      } else {
-        toast("No questions found");
-      }
     } else {
       startSpeechToText();
     }
   };
-  
-  
+
+  const updateAnswer = async () => {
+    setLoading(true);
+    const feedbackPrompt =
+      "Qeustion: " +
+      questions[activeQuestion]?.question +
+      " Answer: " +
+      userAnswer +
+      ",depends on question and user answer for given interview question" +
+      " please give us rating for answer and feedback as area of improvement if any" +
+      "in just 3 to 5 lines to improve it in JSON format with rating field and feedback field";
+    const result = await chatSession.sendMessage(feedbackPrompt);
+    const mockJsonResp = result.response
+      .text()
+      .replace("```json", "")
+      .replace(/^\s+/, "")
+      .replace("```", "");
+    console.log(mockJsonResp);
+    const responseData = JSON.parse(mockJsonResp);
+
+    const respDB = await db.insert(Answer).values({
+      mockIdRef: interviewInfo?.mockId as string,
+      question: questions[activeQuestion]?.question as string,
+      userAnswer: userAnswer as string,
+      feedback: responseData?.feedback as string,
+      rating: responseData?.rating as string,
+      createdAt: moment().format("DD-MM-yyyy") as string,
+      correctAns: questions[activeQuestion]?.answer as string,
+      userEmail: user?.primaryEmailAddress?.emailAddress as string,
+    });
+    if (respDB) {
+      toast("Answer saved successfully");
+    }
+    setUserAnswer("");
+    setLoading(false);
+  };
+
   return (
     <>
       {loading && (
@@ -130,7 +135,11 @@ function WebcamComponent({
             </Button>
           )}
           {!cameraButton && (
-            <Button className="my-2" variant={"outline"} onClick={saveAnswer}>
+            <Button
+              className="my-2"
+              variant={"outline"}
+              onClick={startStopRecording}
+            >
               {isRecording ? "Stop" : "Record"}
             </Button>
           )}
@@ -154,14 +163,11 @@ function WebcamComponent({
             <Button
               className="my-2"
               variant={isRecording ? "destructive" : "outline"}
-              onClick={saveAnswer}
+              onClick={startStopRecording}
             >
               {isRecording ? "Stop" : "Record"}
             </Button>
           )}
-          <Button onClick={() => console.log(userAnswer)}>
-            Show user answer
-          </Button>
         </>
       )}
     </>
