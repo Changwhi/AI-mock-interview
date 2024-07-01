@@ -66,7 +66,7 @@ function Interview({ params }: { params: { interviewId: string } }) {
           </div>
           <div className="flex flex-col justify-center gap-4">
             {/* <Webcam /> */}
-            <WebcamComponent cameraButton={true} />
+            <WebcamComponent interviewInfo={null} activeQuestion={0} questions={null} cameraButton={true} />
           </div>
         </div>
       </div>
