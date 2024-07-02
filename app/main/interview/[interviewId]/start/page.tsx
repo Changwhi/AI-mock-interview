@@ -1,16 +1,14 @@
 "use client";
-import { MockInterviewType } from "@/type/interviewType";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import QuestionsSection from "./_components/QuestionsSection";
-import Record from "./_components/Record";
 import useGetInterviewDetails from "@/lib/useGetInterviewDetails";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import WebcamComponent from "@/components/WebcamComponent";
+import Link from "next/link";
 
 function Start({ params }: { params: { interviewId: string } }) {
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const [questions, setQuestions] = useState<MockInterviewType[]>([]);
   const response = useGetInterviewDetails(params.interviewId);
 
   return (
@@ -29,7 +27,12 @@ function Start({ params }: { params: { interviewId: string } }) {
                 activeQuestion={activeQuestion}
               />
               <div className="flex flex-col md:my-20 justify-center items-center rounded-lg">
-                <WebcamComponent interviewInfo={response} questions={JSON.parse(response?.jsonMockResp as string)} activeQuestion={activeQuestion} cameraButton={false} />
+                <WebcamComponent
+                  interviewInfo={response}
+                  questions={JSON.parse(response?.jsonMockResp as string)}
+                  activeQuestion={activeQuestion}
+                  cameraButton={false}
+                />
               </div>
             </>
           )}
@@ -40,10 +43,36 @@ function Start({ params }: { params: { interviewId: string } }) {
                 <Skeleton className="h-[350px] w-[250px] rounded-xl" />
               </div>
               <div className="flex flex-col md:my-20 justify-center items-center rounded-lg">
-                <WebcamComponent interviewInfo={null} questions={null} cameraButton={false} activeQuestion={activeQuestion} />
+                <WebcamComponent
+                  interviewInfo={null}
+                  questions={null}
+                  cameraButton={false}
+                  activeQuestion={activeQuestion}
+                />
               </div>
             </>
           )}
+        </div>
+      </div>
+      <div className="flex gap-10 my-5 justify-between">
+        <div className="flex gap-5 justify-start">
+          <Button
+            disabled={activeQuestion == 0}
+            onClick={() => setActiveQuestion(activeQuestion - 1)}
+          >
+            {"<"} Previous Question
+          </Button>
+          <Button
+            disabled={activeQuestion == 4}
+            onClick={() => setActiveQuestion(activeQuestion + 1)}
+          >
+            Next Question {">"}
+          </Button>
+        </div>
+        <div>
+          <Link href={"/main/interview/" + response?.mockId + "/result"}>
+            <Button disabled={activeQuestion != 4}>End Interview</Button>
+          </Link>
         </div>
       </div>
     </div>
