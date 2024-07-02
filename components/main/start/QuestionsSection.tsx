@@ -1,6 +1,8 @@
-import { INFORMATION_ABOUT_THE_QUESTION } from "@/text/interview";
+import { NO_SUPPORT_VOICE } from "@/text/ErrorText";
+import { INFORMATION, INFORMATION_ABOUT_THE_QUESTION, QUESTION_NO } from "@/text/RegularText";
 import { Lightbulb, Volume2 } from "lucide-react";
 import React from "react";
+import { toast } from "sonner";
 
 function QuestionsSection({
   questions,
@@ -17,7 +19,7 @@ function QuestionsSection({
             speech.rate = 1;
             speechSynthesis.speak(speech);
         }else{
-            alert("Your browser does not support text to speech");
+            toast(NO_SUPPORT_VOICE)
         }
     }
   return (
@@ -33,7 +35,7 @@ function QuestionsSection({
                     activeQuestion == index ? "bg-primary text-white" : "bg-secondary"
                 }`}
                 >
-                Qeustion #{index + 1}
+                {QUESTION_NO}{index + 1}
               </h2>
             ))}
         </div>
@@ -44,7 +46,7 @@ function QuestionsSection({
         <div className="border rounded-lg p-5 bg-blue-100 mt-10">
           <h2 className="flex gap-2 items-center text-primary">
             <Lightbulb />
-            <strong>Information</strong>
+            <strong>{INFORMATION}</strong>
           </h2>
           <h2>{INFORMATION_ABOUT_THE_QUESTION}</h2>
         </div>
