@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import QuestionsSection from "./_components/QuestionsSection";
+import QuestionsSection from "@/components/main/start/QuestionsSection";
 import useGetInterviewDetails from "@/lib/useGetInterviewDetails";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
