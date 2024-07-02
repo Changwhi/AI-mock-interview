@@ -1,0 +1,5 @@
+export const QUESTION = "Question: "
+export const ANSWER = "Answer: "
+export const JOB_POSITION = "Job Position: "
+export const JOB_DESCRIPTION = ", Job Description: "
+export const JOB_EXPERIENCE = ", Years of Experience: "
