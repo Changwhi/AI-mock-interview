@@ -19,6 +19,22 @@ import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { db } from "@/utils/db";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import {
+  CANCEL,
+  EG_DEVELOPER,
+  NO_DATA_FOUND,
+  POSITION,
+  START_NEW_INTERVIEW,
+  WHAT_MOCKUP_YOU_WANT,
+  YEAR_OF_YOUR_EXPERIENCE,
+  YOUR_NEED,
+} from "@/text/RegularText";
+import {
+  JOB_DESCRIPTION,
+  JOB_EXPERIENCE,
+  JOB_POSITION,
+} from "@/text/PromptText";
 
 function AddNewInterview() {
   const [open, setOpen] = useState(false);
@@ -35,14 +51,13 @@ function AddNewInterview() {
     e.preventDefault();
     try {
       const InputPromt =
-        "Job position:" +
+        { JOB_POSITION } +
         position +
-        ", Job Description:" +
+        { JOB_DESCRIPTION } +
         description +
-        ", Years of Experience:" +
+        { JOB_EXPERIENCE } +
         year +
-        ", depends on this information please give me 5 interview question with Answered in Json format, give question and answer as filed in json";
-      console.log(InputPromt);
+        process.env.NEXT_PUBLIC_REQUEST_QUESTIONS;
       const result = await chatSession.sendMessage(InputPromt);
       const data = result.response
         .text()
@@ -51,10 +66,12 @@ function AddNewInterview() {
         .replace("```", "");
       setResponse(data);
       if (!data) {
-        console.log("No data found - in AddNewInterview.tsx");
+        toast(NO_DATA_FOUND);
         return;
       }
-      const resp = await db.insert(MockInterview).values({
+      const resp = await db
+        .insert(MockInterview)
+        .values({
           mockId: uuidv4() as string,
           jsonMockResp: data as string,
           jobDescription: description as string,
@@ -62,16 +79,17 @@ function AddNewInterview() {
           jobExperience: year as string,
           createdBy: user?.primaryEmailAddress?.emailAddress as string,
           createdAt: moment().format("DD-MM-yyyy"),
-        }).returning({
-          mockId:MockInterview.mockId
+        })
+        .returning({
+          mockId: MockInterview.mockId,
         });
-        if(resp){
-            setOpenInterview(true);
-            router.push('/main/interview/'+resp[0].mockId)
-        }
-        setOpen(false);
+      if (resp) {
+        setOpenInterview(true);
+        router.push("/main/interview/" + resp[0].mockId);
+      }
+      setOpen(false);
     } catch (error) {
-      console.log(error);
+      toast(error as []);
     } finally {
       setLoading(false);
     }
@@ -85,29 +103,32 @@ function AddNewInterview() {
         }}
         className="p-10 border rounded-lg bg-secondary hover:scale-105 hover:shadow-md cursor-pointer transition-all"
       >
-        <p className="text-lg font-semibold text-center"> + Start New Mockup</p>
+        <p className="text-lg font-semibold text-center">
+          {" "}
+          {START_NEW_INTERVIEW}
+        </p>
       </div>
       <Dialog open={open}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold">
-              What kind of Mockup do you want?
+              {WHAT_MOCKUP_YOU_WANT}
             </DialogTitle>
             <DialogDescription>
               <form onSubmit={handleSubmit}>
                 <div className="text-black font-semibold">
-                  <p>Let us know your needs</p>
+                  <p>{YOUR_NEED}</p>
                   <div className="mt-7 mb-4">
-                    <label className="">Position</label>
+                    <label className="">{POSITION}</label>
                     <Input
                       onChange={(e) => setPosition(e.target.value)}
-                      placeholder="e,g. Frontend Developer"
+                      placeholder={EG_DEVELOPER}
                       max={100}
                       required
                     />
                   </div>
                   <div className="mb-4">
-                    <label>Job Description and Tech Stacks</label>
+                    <label>{JOB_DESCRIPTION}</label>
                     <Textarea
                       onChange={(e) => setDescription(e.target.value)}
                       placeholder="e,g. React.js, Next.js, MySQL"
@@ -115,7 +136,7 @@ function AddNewInterview() {
                     />
                   </div>
                   <div className="mb-4">
-                    <label>Year of your experience</label>
+                    <label>{YEAR_OF_YOUR_EXPERIENCE}</label>
                     <Input
                       onChange={(e) => setYear(e.target.value)}
                       placeholder="e,g. 2"
@@ -132,7 +153,7 @@ function AddNewInterview() {
                     variant={"ghost"}
                     onClick={() => setOpen(false)}
                   >
-                    Cancel
+                    {CANCEL}
                   </Button>
                   <Button
                     type="submit"
