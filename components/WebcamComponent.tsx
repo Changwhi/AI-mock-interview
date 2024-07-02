@@ -35,6 +35,7 @@ function WebcamComponent({
     interimResult,
     isRecording,
     results,
+    setResults,
     startSpeechToText,
     stopSpeechToText,
   } = useSpeechToText({
@@ -56,10 +57,9 @@ function WebcamComponent({
     if (!isRecording && userAnswer.length > 10) {
       updateAnswer();
     }
-    if (userAnswer.length < 10) {
+    if (!isRecording && userAnswer.length < 10 && userAnswer.length > 0) {
       setLoading(false);
       toast("Please speak at least 10 words");
-      return;
     }
   }, [userAnswer]);
 
@@ -79,7 +79,7 @@ function WebcamComponent({
       " Answer: " +
       userAnswer +
       ",depends on question and user answer for given interview question" +
-      " please give us rating for answer and feedback as area of improvement if any" +
+      " please give us rating for answer out of 5and feedback as area of improvement if any" +
       "in just 3 to 5 lines to improve it in JSON format with rating field and feedback field";
     const result = await chatSession.sendMessage(feedbackPrompt);
     const mockJsonResp = result.response
@@ -102,8 +102,11 @@ function WebcamComponent({
     });
     if (respDB) {
       toast("Answer saved successfully");
+       setResults([]);
+
     }
     setUserAnswer("");
+    setResults([]);
     setLoading(false);
   };
 
@@ -127,8 +130,8 @@ function WebcamComponent({
           />
           {cameraButton && (
             <Button
-              variant={"outline"}
-              className="self-center my-2"
+              variant={"default"}
+              className="my-2 w-full"
               onClick={() => setWebCamEnabled(false)}
             >
               Disable Webcam
@@ -136,8 +139,8 @@ function WebcamComponent({
           )}
           {!cameraButton && (
             <Button
-              className="my-2"
-              variant={"outline"}
+              className="my-2 w-full"
+              variant={isRecording ? "destructive" : "default"}
               onClick={startStopRecording}
             >
               {isRecording ? "Stop" : "Record"}
@@ -152,8 +155,7 @@ function WebcamComponent({
           </div>
           {cameraButton && (
             <Button
-              variant={"outline"}
-              className="self-center my-2"
+              className="my-2 w-full"
               onClick={() => setWebCamEnabled(true)}
             >
               Enable Webcam
@@ -161,8 +163,8 @@ function WebcamComponent({
           )}
           {!cameraButton && (
             <Button
-              className="my-2"
-              variant={isRecording ? "destructive" : "outline"}
+              className="my-5 w-full"
+              variant={isRecording ? "destructive" : "default"}
               onClick={startStopRecording}
             >
               {isRecording ? "Stop" : "Record"}
