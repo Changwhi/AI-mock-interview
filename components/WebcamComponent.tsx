@@ -133,13 +133,13 @@ function WebcamComponent({
           />
           <Button
             variant={"default"}
-            className="my-2 w-1/4"
+            className="my-2 w-2/4"
             onClick={() => setWebCamEnabled(false)}
           >
             {DISABLE_WEBCAM}
           </Button>
           <Button
-            className="my-2 w-1/4"
+            className="my-2 w-2/4"
             variant={isRecording ? "destructive" : "default"}
             onClick={startStopRecording}
           >
@@ -152,11 +152,11 @@ function WebcamComponent({
           <div className="h-full w-full items-center flex flex-col justify-center text-center text-semibold border bg-secondary rounded-md">
             <WebcamIcon className="w-20 h-20" />
           </div>
-          <Button className="my-2 w-1/4" onClick={() => setWebCamEnabled(true)}>
+          <Button className="my-2 w-2/4" onClick={() => setWebCamEnabled(true)}>
             {ENALBE_WEBCAM}
           </Button>
           <Button
-            className="my-2 w-1/4"
+            className="my-2 w-2/4"
             variant={isRecording ? "destructive" : "default"}
             onClick={startStopRecording}
           >
