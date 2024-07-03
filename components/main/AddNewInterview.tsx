@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import {
   CANCEL,
   EG_DEVELOPER,
+  JOB_DESCRIPTION_FOR_NEW_INTERVIEW,
   NO_DATA_FOUND,
   POSITION,
   START_NEW_INTERVIEW,
@@ -128,7 +129,7 @@ function AddNewInterview() {
                     />
                   </div>
                   <div className="mb-4">
-                    <label>{JOB_DESCRIPTION}</label>
+                    <label>{JOB_DESCRIPTION_FOR_NEW_INTERVIEW}</label>
                     <Textarea
                       onChange={(e) => setDescription(e.target.value)}
                       placeholder="e,g. React.js, Next.js, MySQL"
