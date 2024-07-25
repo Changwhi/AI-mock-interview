@@ -7,6 +7,7 @@ import Link from "next/link";
 import useGetInterviewDetails from "@/lib/useGetInterviewDetails";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
+import WebcamComponent from "@/components/WebcamComponent";
 
 
 function Interview({ params }: { params: { interviewId: string } }) {
@@ -66,14 +67,10 @@ function Interview({ params }: { params: { interviewId: string } }) {
               </div>
             </div>
             <div className="flex flex-col justify-center">
-            <Image 
-              src={"/interview.png"}
-              alt="Interview Image"
-              width={500}
-              height={500}
-              className="rounded-xl"
-            >
-              </Image> 
+           
+
+              <WebcamComponent button={true}/>
+
             </div>
           </div>
         </div>
