@@ -20,10 +20,19 @@ AI Mock Interview is a web-based application that simulates a mock interview exp
 - **Hosting**: Vercel
 - **APIs Used**: OpenAI API (for AI-driven questions)
 
-## Create Mock Interview
+### Create Mock Interview
 ![Create a mock interview session](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2R2czlvNG40OXMycHYxa2J4bjEzdTdmaWpqb2R6eHY2emg3Nm13ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qF7SrAkVFUisBtBVi1/giphy.gif)
 
-![test](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGV3eTF2aXcycjZwNWFrOHhxNDJkaWpxZTVqbjQzZ2VnZjl0YzNoNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EozovViXSpD4U3HJ9O/giphy.gif)
+### Camera On/Off
+![Camera](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGV3eTF2aXcycjZwNWFrOHhxNDJkaWpxZTVqbjQzZ2VnZjl0YzNoNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EozovViXSpD4U3HJ9O/giphy.gif)
+
+### Questions
+![Questions](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGI3ZTE1bXJwbms5eTRxNGMxdTY5a21hMDRncHB0d2d3czBjdDJhdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uWuD1T5jGSTgBkggB8/giphy.gif)
+
+### Result
+![Result](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTl4NzhiYm0wajA1M2Y5aXMzMXI1dDY5bXc1OXhpYnRkN25xbnkxeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YFk2ZfuHkHVg0yEb0L/giphy.gif)
+
+
 ## Getting Started
 
 ### Prerequisites
