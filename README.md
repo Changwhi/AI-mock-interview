@@ -20,6 +20,10 @@ AI Mock Interview is a web-based application that simulates a mock interview exp
 - **Hosting**: Vercel
 - **APIs Used**: OpenAI API (for AI-driven questions)
 
+## Create Mock Interview
+(https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2R2czlvNG40OXMycHYxa2J4bjEzdTdmaWpqb2R6eHY2emg3Nm13ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qF7SrAkVFUisBtBVi1/giphy.gif)
+
+
 ## Getting Started
 
 ### Prerequisites
