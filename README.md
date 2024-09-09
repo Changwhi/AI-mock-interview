@@ -1,24 +1,9 @@
 # AI Mock Interview
 
 [![Website](https://img.shields.io/badge/Website-Live-brightgreen)](https://ai-mock-interview-navy.vercel.app/)
-
 AI Mock Interview is a web-based application that simulates a mock interview experience. It allows users to practice and improve their interviewing skills by interacting with an AI that generates interview questions and provides feedback based on user responses.
 
-## Features
-
-- **Interactive Interview Simulations**: Users can engage in realistic, AI-driven interview sessions.
-- **Question Variety**: The AI generates questions across different topics and job roles to ensure a diverse interview experience.
-- **Feedback System**: After each session, users receive feedback and tips on how to improve their answers.
-- **Real-Time Experience**: The web app provides a seamless real-time interaction to help users build confidence in their interview skills.
-
-## Tech Stack
-
-- **Frontend**: Next.js (TypeScript), TailwindCSS, ShadCN
-- **Backend**: Node.js, Auth0 for authentication
-- **Database**: PostgreSQL
-- **Hosting**: Vercel
-- **APIs Used**: OpenAI API (for AI-driven questions)
-
+## Demo
 ### Create Mock Interview
 ![Create a mock interview session](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2R2czlvNG40OXMycHYxa2J4bjEzdTdmaWpqb2R6eHY2emg3Nm13ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qF7SrAkVFUisBtBVi1/giphy.gif)
 
@@ -31,6 +16,19 @@ AI Mock Interview is a web-based application that simulates a mock interview exp
 ### Result
 ![Result](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTl4NzhiYm0wajA1M2Y5aXMzMXI1dDY5bXc1OXhpYnRkN25xbnkxeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YFk2ZfuHkHVg0yEb0L/giphy.gif)
 
+## Features
+- **Interactive Interview Simulations**: Users can engage in realistic, AI-driven interview sessions.
+- **Question Variety**: The AI generates questions across different topics and job roles to ensure a diverse interview experience.
+- **Feedback System**: After each session, users receive feedback and tips on how to improve their answers.
+- **Real-Time Experience**: The web app provides a seamless real-time interaction to help users build confidence in their interview skills.
+
+## Tech Stack
+
+- **Frontend**: Next.js (TypeScript), TailwindCSS, ShadCN
+- **Backend**: Node.js, Auth0 for authentication
+- **Database**: PostgreSQL
+- **Hosting**: Vercel
+- **APIs Used**: OpenAI API (for AI-driven questions)
 
 ## Getting Started
 
