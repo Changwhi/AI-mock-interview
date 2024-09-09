@@ -1,6 +1,6 @@
 # AI Mock Interview
 
-[![Website](https://img.shields.io/badge/Website-Live-brightgreen)](https://ai-mock-interview-navy.vercel.app/)  
+[![Website](https://img.shields.io/badge/Website-Live-brightgreen)](https://ai-mock-interview-navy.vercel.app/) https://ai-mock-interview-navy.vercel.app/  
 AI Mock Interview is a web-based application that simulates a mock interview experience. It allows users to practice and improve their interviewing skills by interacting with an AI that generates interview questions and provides feedback based on user responses.
 
 ## Demo
