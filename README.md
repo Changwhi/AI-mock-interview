@@ -24,7 +24,7 @@ AI Mock Interview is a web-based application that simulates a mock interview exp
 ![Create a mock interview session]
 (https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2R2czlvNG40OXMycHYxa2J4bjEzdTdmaWpqb2R6eHY2emg3Nm13ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qF7SrAkVFUisBtBVi1/giphy.gif)
 
-
+(https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGV3eTF2aXcycjZwNWFrOHhxNDJkaWpxZTVqbjQzZ2VnZjl0YzNoNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EozovViXSpD4U3HJ9O/giphy.gif)
 ## Getting Started
 
 ### Prerequisites
