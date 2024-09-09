@@ -1,37 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AI Mock Interview
+
+[![Website](https://img.shields.io/badge/Website-Live-brightgreen)](https://ai-mock-interview-navy.vercel.app/)
+
+AI Mock Interview is a web-based application that simulates a mock interview experience. It allows users to practice and improve their interviewing skills by interacting with an AI that generates interview questions and provides feedback based on user responses.
+
+## Features
+
+- **Interactive Interview Simulations**: Users can engage in realistic, AI-driven interview sessions.
+- **Question Variety**: The AI generates questions across different topics and job roles to ensure a diverse interview experience.
+- **Feedback System**: After each session, users receive feedback and tips on how to improve their answers.
+- **Real-Time Experience**: The web app provides a seamless real-time interaction to help users build confidence in their interview skills.
+
+## Tech Stack
+
+- **Frontend**: Next.js (TypeScript), TailwindCSS, ShadCN
+- **Backend**: Node.js, Auth0 for authentication
+- **Database**: PostgreSQL
+- **CI/CD**: GitHub Actions
+- **Hosting**: Vercel
+- **APIs Used**: OpenAI API (for AI-driven questions)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Before you begin, ensure you have the following installed:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node.js (version 14 or higher)
+- PostgreSQL
+- Auth0 account for authentication setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Changwhi/AI-mock-interview.git
+   ```
+2. Install dependencies:
+   ```bash
+    npm install
+   ```
+3. Set up environment variables for the project, including PostgreSQL and Auth0 configurations.
+4. Run the application locally:
+   ```bash
+    npm run dev
+   ```
+5. Access the app in your browser at http://localhost:3000.
 
-## Learn More
+## Deployment
+The project is deployed using Vercel. To deploy your version, follow these steps:
 
-To learn more about Next.js, take a look at the following resources:
+Link your repository to Vercel.
+Set up the necessary environment variables on Vercel.
+Deploy the application directly from your GitHub repository.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
+Contributions are welcome! Please follow these steps to contribute:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Fork the repository.
+1. Create a new branch for your feature or bugfix.
+2. Commit your changes with clear and concise messages.
+3. Push your branch and submit a pull request.
 
-## Deploy on Vercel
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-"# AI-mock-interview" 
+
