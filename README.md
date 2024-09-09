@@ -16,7 +16,6 @@ AI Mock Interview is a web-based application that simulates a mock interview exp
 - **Frontend**: Next.js (TypeScript), TailwindCSS, ShadCN
 - **Backend**: Node.js, Auth0 for authentication
 - **Database**: PostgreSQL
-- **CI/CD**: GitHub Actions
 - **Hosting**: Vercel
 - **APIs Used**: OpenAI API (for AI-driven questions)
 
